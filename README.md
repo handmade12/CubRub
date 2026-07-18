@@ -1,68 +1,54 @@
-# CubRub
+# CubRub (demo)
 
-A small website that teaches you to solve a Rubik's Cube.
+A small site that helps you solve a 2x2 or 3x3 Rubik's cube.
 
-You choose a 2×2 or 3×3 cube, paint the colors of your cube,
-type of cube, and follow a clear step-by-step solution in 3D.
+You pick a cube, paint the colors of your real cube on screen,
+the site checks them, and shows a step-by-step solution in 3D.
 
-- Languages: Russian and English.
-- Solves 2×2 and 3×3 in-browser or via a small local server.
-- No accounts. Data stays in your browser.
+Right now this is only a **demo**:
+
+- the server starts, the page loads, but the app is not fully
+  wired up yet;
+- on the user's setup the cube solver does not produce a solution
+  inside the browser, so the site will not actually solve a cube;
+- styling, layout, and the empty sample version are all in place;
+- the real working version is being finished and will replace
+  this one later.
+
+In short: the site looks alive, but it is a placeholder. Treat it
+as a screenshot, not as a product.
+
+## What it does
+
+- Home page with two buttons: pick 2x2 or 3x3.
+- "Solve" page: you paint six faces of your cube. Each sticker
+  shows a color; the next face is described with a small 3D cube.
+- "Patterns" page: a small catalogue of cube patterns.
+- "Learn" page: a short course on solving the cube by hand.
+- Two languages: Russian and English. No accounts, no tracking.
+
+## How it is put together
+
+- `apps/web/` is the web app (Preact + Vite + a tiny static server).
+- `libs/` are small, focused packages for the cube model,
+  input flow, validation, solver, storage, render, i18n,
+  patterns, and learning.
+- Tests live next to each file.
+- The local server binds to `127.0.0.1:8000` by default.
 
 ## Quick start
 
-You need [Deno](https://deno.com/) 1.45+.
-
 ```sh
-# run checks (format + lint + typecheck)
 deno task check
-
-# run tests
 deno task test
-
-# build the client
 deno task build
-
-# start the local server
-deno run --allow-net=127.0.0.1:8000 --allow-read=dist apps/web/main.ts --port 8000
+deno run --allow-net=127.0.0.1:8000 --allow-read=dist apps/web/main.ts
 ```
 
-Then open `http://127.0.0.1:8000/` in your browser.
-
-## Project layout
-
-```
-apps/web/   The web app (Preact + Vite + a small static server)
-libs/       Pure-domain libraries (cube model, input, solver, etc.)
-```
-
-Each library is small and has its own tests:
-
-- `cube-core`: cube model, moves, geometry.
-- `cube-input`: capture flow for six faces, anchor / lock.
-- `cube-validation`: physical sanity checks (orientation, parity).
-- `cube-solver`: thin wrapper around cubing.js.
-- `cube-application`: orchestrates capture → review → result stages.
-- `cube-storage`: tiny key/value adapter for `localStorage`.
-- `cube-render`: SVG visualizations.
-- `cube-i18n`: messages for Russian and English.
-- `cube-patterns`, `cube-learning`: catalog content.
-
-## Browser data
-
-All saved data lives in `localStorage` under `cuberub:*` keys.
-The site talks to nothing external except, optionally, the cubing.js
-worker that ships with this repo.
-
-## Security
-
-- No backend accounts. No telemetry.
-- Strict CSP, `X-Frame-Options: DENY`, `Referrer-Policy: no-referrer`.
-- The local server binds to `127.0.0.1:8000` by default.
-  Pass `--host 0.0.0.0 --port 8080` to expose it.
+Open `http://127.0.0.1:8000/`.
 
 ## Credits
 
 Created by Sorokin Kirill.
-Cube-solver engine: [cubing.js](https://github.com/cubing/cubing.js)
-(MPL-2.0 OR GPL-3.0-or-later).
+Cube-solver engine uses
+[cubing.js](https://github.com/cubing/cubing.js).
