@@ -24,7 +24,7 @@ function windowScope(): WindowLike | null {
 
 export function createAppState() {
   const localeSignal = signal<Locale>(detectInitialLocale());
-  const pathSignal = signal<string>(windowPath());
+  const pathSignal = signal<string>(consumePendingPath() ?? windowPath());
   const sizeSignal = signal<CubeSize>(detectSize());
 
   function refreshPath() {
@@ -195,4 +195,22 @@ function windowPath(): string {
   const win = windowScope();
   if (!win) return "/";
   return win.location.pathname + win.location.search;
+}
+
+function consumePendingPath(): string | null {
+  const win = windowScope();
+  if (!win) return null;
+  let pending: string | null = null;
+  try {
+    pending = win.location.pathname === "/" ? null : win.location.pathname + win.location.search;
+    const stored = sessionStorage.getItem("cuberub:pending-path");
+    if (stored && stored !== "/" && (win.location.pathname === "/" || win.location.pathname.endsWith("/"))) {
+      pending = stored;
+      win.history.replaceState(null, "", stored);
+    }
+    if (stored) sessionStorage.removeItem("cuberub:pending-path");
+  } catch {
+    /* sessionStorage unavailable; ignore */
+  }
+  return pending;
 }

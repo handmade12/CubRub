@@ -6,9 +6,10 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
+  actions: write
 
 concurrency:
   group: pages
@@ -29,25 +30,19 @@ jobs:
         with:
           node-version: "20"
 
-      - name: Install
-        run: npm install
-
       - name: Build
         run: npx --yes deno@v1.45.5 task build
 
-      - name: Sync to dist
-        run: |
-          rm -rf dist
-          mkdir dist
-          cp -R apps/web/dist/. dist/
-
       - name: Add .nojekyll
-        run: touch dist/.nojekyll
+        run: touch apps/web/dist/.nojekyll
+
+      - name: Inject Pages asset base
+        run: node -e "const fs=require('fs');const p='apps/web/dist/index.html';let h=fs.readFileSync(p,'utf8');h=h.replace(/(src|href)=\"\/(?!\\/)/g,'$1=\"./');h=h.replace('<head>','<head><base href=\"./\">');fs.writeFileSync(p,h);"
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: dist
+          path: apps/web/dist
 
   deploy:
     needs: build
