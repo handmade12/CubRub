@@ -3,7 +3,7 @@
     "apps/web",
     "libs/*"
   ],
-  "nodeModulesDir": "manual",
+  "nodeModulesDir": "auto",
   "lock": true,
   "tasks": {
     "dev": "deno task --cwd=apps/web dev",

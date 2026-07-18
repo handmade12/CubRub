@@ -1,9 +1,7 @@
 # CubRub (demo)
 
 This is just a small demo site.
-
-It looks like a 2x2 or 3x3 Rubik's cube solver: you pick a size,
-paint the colors, and see a 3D preview.
+It looks like a 2x2 or 3x3 Rubik's cube solver: you pick a size, paint the colors, and see a 3D preview.
 
 Right now the **real solver does not work** on the user's setup,
 so this site will not actually solve a cube. It is here mostly
