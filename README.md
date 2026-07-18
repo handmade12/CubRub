@@ -1,9 +1,9 @@
 # CubRub (demo)
 
-This is a small demo site that looks like a 2x2 / 3x3 Rubik's cube solver.
+A small demo site that looks like a 2x2 / 3x3 Rubik's cube solver.
 
-Pick a cube size, paint the colors of your real cube, and the site
-shows a 3D preview.
+Pick a cube size, paint the colors of your real cube, and the
+site shows a 3D preview.
 
 **Right now the real solver does not work** on the user's setup, so
 this site will not actually solve a cube. It is here mostly as a
@@ -23,25 +23,15 @@ The static site is published from `main`:
 - A learn page that walks through solving the cube by hand.
 - Russian and English.
 
-## Tech stack
-
-- **Deno** workspace with a small set of pure-domain libraries:
-  cube model, input flow, solver wrapper, storage, render, i18n,
-  patterns, learning.
-- **Preact + Vite** for the client bundle.
-- **cubing.js** powers the 3D cube preview.
-- A tiny **Deno** static server for local development.
-
 ## Privacy
 
-All saved data lives in `localStorage` under `cuberub:*` keys.
-No accounts. No telemetry. No outbound traffic beyond the cubing.js
-worker that ships with the repo.
+All saved data stays in your browser. No accounts, no tracking,
+no background calls to any server.
 
 ## Credits
 
 Made by **Sorokin Kirill**.
 
-Cube preview engine:
+The 3D cube preview uses
 [cubing.js](https://github.com/cubing/cubing.js)
 (MPL-2.0 OR GPL-3.0-or-later).
