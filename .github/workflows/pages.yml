@@ -35,13 +35,19 @@ jobs:
       - name: Build
         run: npx --yes deno@v1.45.5 task build
 
+      - name: Sync to dist
+        run: |
+          rm -rf dist
+          mkdir dist
+          cp -R apps/web/dist/. dist/
+
       - name: Add .nojekyll
-        run: touch apps/web/dist/.nojekyll
+        run: touch dist/.nojekyll
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: apps/web/dist
+          path: dist
 
   deploy:
     needs: build
