@@ -33,9 +33,6 @@ jobs:
           restore-keys: |
             cubrub-build-${{ runner.os }}-
 
-      - name: Configure git safe.directory
-        run: git config --global --add safe.directory $GITHUB_WORKSPACE
-
       - name: Install
         run: deno install
 
