@@ -1,6 +1,5 @@
 {
   "nodeModulesDir": true,
-  "lock": true,
   "tasks": {
     "dev": "deno task --cwd=apps/web dev",
     "build": "deno task --cwd=apps/web build",
