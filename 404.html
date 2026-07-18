@@ -2,16 +2,17 @@
 <html lang="ru">
   <head>
     <meta charset="UTF-8" />
+    <title>CubeRub</title>
+    <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#090d17" />
     <meta name="description" content="CubeRub — понятное интерактивное решение кубика 2×2 и 3×3." />
     <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
-    <title>CubeRub — собери кубик понятно</title>
     <base href="./" />
     <script>
-      // GitHub Pages serves this file as a custom 404. Forward the
-      // user to the SPA index with the original path preserved in
-      // sessionStorage so the client router can restore it.
+      // GitHub Pages serves this file as a custom 404 for unknown
+      // URLs. Persist the original path so the SPA index can pick it
+      // up after redirect, then fall through to the meta-refresh.
       (() => {
         try {
           const path = location.pathname + location.search + location.hash;
@@ -19,9 +20,9 @@
             sessionStorage.setItem("cuberub:pending-path", path);
           }
         } catch (_) { /* ignore */ }
-        location.replace("./");
       })();
     </script>
+    <meta http-equiv="refresh" content="0; url=./" />
   </head>
   <body>
     <div id="app"></div>
