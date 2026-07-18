@@ -7,8 +7,12 @@
 node_modules/
 _fresh/
 apps/web/_fresh/
-apps/web/dist/
 coverage/
+
+# apps/web/dist is intentionally committed only for the local Pages
+# branch deploy (so the static server can host it without running deno).
+# Keep the line commented in CI builds: the Pages deploy now reads the
+# remote apps/web/dist branch.
 
 # Editors and OS
 .vscode/
