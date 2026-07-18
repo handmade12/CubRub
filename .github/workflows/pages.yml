@@ -9,20 +9,19 @@ permissions:
   contents: read
   pages: write
   id-token: write
+  actions: write
 
 jobs:
   build:
     runs-on: ubuntu-latest
     timeout-minutes: 20
-    env:
-      DENO_VERSION: "v1.45.5"
+    container:
+      image: denoland/deno:alpine
     steps:
       - uses: actions/checkout@v4
 
-      - name: Setup Deno
-        uses: denoland/setup-deno@v1
-        with:
-          deno-version: ${{ env.DENO_VERSION }}
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
 
       - name: Cache deno deps
         uses: actions/cache@v4
@@ -30,21 +29,24 @@ jobs:
           path: |
             ~/.cache/deno
             .deno_cache
-          key: cubrub-build-${{ runner.os }}-${{ hashFiles('**/deno.lock', '.github/workflows/build.yml') }}
+          key: cubrub-build-${{ runner.os }}-${{ hashFiles('**/deno.lock', '.github/workflows/pages.yml') }}
           restore-keys: |
             cubrub-build-${{ runner.os }}-
 
+      - name: Configure git safe.directory
+        run: git config --global --add safe.directory $GITHUB_WORKSPACE
+
+      - name: Install
+        run: deno install
+
       - name: Format and lint
-        run: deno task check
+        run: deno fmt --check . && deno lint . && deno check
 
       - name: Run tests
-        run: deno task test
+        run: deno test --allow-read
 
       - name: Build client
         run: deno task build
-
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
