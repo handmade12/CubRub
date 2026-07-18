@@ -31,7 +31,7 @@ jobs:
           node-version: "20"
 
       - name: Build
-        run: npx --yes deno@v1.45.5 task build
+        run: curl -fsSL https://deno.land/install.sh | sh -s -- -y v1.45.5 && ~/.deno/bin/deno task build
 
       - name: Add .nojekyll
         run: touch apps/web/dist/.nojekyll
