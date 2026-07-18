@@ -10,44 +10,43 @@ permissions:
   pages: write
   id-token: write
 
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
 jobs:
   build:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
-    container:
-      image: denoland/deno:alpine
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
-      - name: Cache deno deps
-        uses: actions/cache@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
         with:
-          path: |
-            ~/.cache/deno
-            .deno_cache
-          key: cubrub-build-${{ runner.os }}-${{ hashFiles('**/deno.lock', '.github/workflows/pages.yml') }}
-          restore-keys: |
-            cubrub-build-${{ runner.os }}-
+          node-version: "20"
 
       - name: Install
-        run: deno install
+        run: npm install
 
-      - name: Format and lint
-        run: deno fmt --check . && deno lint . && deno check
+      - name: Build
+        run: npx --yes deno@v1.45.5 task build
 
-      - name: Build client
-        run: deno task build
+      - name: Add .nojekyll
+        run: touch apps/web/dist/.nojekyll
 
-      - name: Run tests
-        run: deno test --allow-read
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: apps/web/dist
 
-  publish:
+  deploy:
     needs: build
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 5
     permissions:
       pages: write
       id-token: write
@@ -55,14 +54,6 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
-
-      - name: Download artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: apps/web/dist
-
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
