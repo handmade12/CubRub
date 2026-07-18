@@ -32,19 +32,6 @@ The static site is published from `main`:
 - **cubing.js** powers the 3D cube preview.
 - A tiny **Deno** static server for local development.
 
-## Run it locally
-
-You need [Deno](https://deno.com/) 1.45+.
-
-```sh
-deno task check     # format + lint + typecheck
-deno task test      # run the unit tests
-deno task build     # produce apps/web/dist
-deno run --allow-net=127.0.0.1:8000 --allow-read=dist apps/web/main.ts
-```
-
-Then open <http://127.0.0.1:8000/>.
-
 ## Privacy
 
 All saved data lives in `localStorage` under `cuberub:*` keys.
