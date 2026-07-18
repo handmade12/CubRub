@@ -1,0 +1,59 @@
+{
+  "name": "@cuberub/web",
+  "version": "0.1.0",
+  "exports": "./main.ts",
+  "publish": false,
+  "tasks": {
+    "dev": "vite",
+    "build": "vite build",
+    "start": "deno run --allow-net --allow-read=dist main.ts"
+  },
+  "imports": {
+    "@/": "./",
+    "@cuberub/cube-core": "../../libs/cube-core/mod.ts",
+    "@cuberub/cube-input": "../../libs/cube-input/mod.ts",
+    "@cuberub/cube-validation": "../../libs/cube-validation/mod.ts",
+    "@cuberub/cube-solver": "../../libs/cube-solver/mod.ts",
+    "@cuberub/cube-i18n": "../../libs/cube-i18n/mod.ts",
+    "@cuberub/cube-storage": "../../libs/cube-storage/mod.ts",
+    "@cuberub/cube-application": "../../libs/cube-application/mod.ts",
+    "@cuberub/cube-render": "../../libs/cube-render/mod.ts",
+    "@cuberub/cube-patterns": "../../libs/cube-patterns/mod.ts",
+    "@cuberub/cube-learning": "../../libs/cube-learning/mod.ts",
+    "@cuberub/test-utils": "../../libs/test-utils/mod.ts",
+    "cubing/twisty": "npm:cubing@0.63.3/twisty",
+    "preact": "npm:preact@^10.29.1",
+    "@preact/signals": "npm:@preact/signals@^2.9.0",
+    "@preact/preset-vite": "npm:@preact/preset-vite@^2.10.5",
+    "vite": "npm:vite@^7.1.3"
+  },
+  "compilerOptions": {
+    "lib": [
+      "dom",
+      "dom.asynciterable",
+      "dom.iterable",
+      "deno.ns"
+    ],
+    "jsx": "precompile",
+    "jsxImportSource": "preact",
+    "jsxPrecompileSkipElements": [
+      "a",
+      "img",
+      "source",
+      "body",
+      "html",
+      "head",
+      "title",
+      "meta",
+      "script",
+      "link",
+      "style",
+      "base",
+      "noscript",
+      "template"
+    ],
+    "types": [
+      "vite/client"
+    ]
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "name": "@cuberub/cube-patterns",
+  "version": "0.1.0",
+  "exports": "./mod.ts",
+  "publish": false,
+  "imports": {
+    "@cuberub/cube-core": "../cube-core/mod.ts"
+  }
+}

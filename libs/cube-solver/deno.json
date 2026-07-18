@@ -1,0 +1,12 @@
+{
+  "name": "@cuberub/cube-solver",
+  "version": "0.1.0",
+  "exports": "./mod.ts",
+  "publish": false,
+  "imports": {
+    "cubing/alg": "npm:cubing@0.63.3/alg",
+    "cubing/kpuzzle": "npm:cubing@0.63.3/kpuzzle",
+    "cubing/puzzles": "npm:cubing@0.63.3/puzzles",
+    "cubing/search": "npm:cubing@0.63.3/search"
+  }
+}

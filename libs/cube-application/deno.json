@@ -1,0 +1,10 @@
+{
+  "name": "@cuberub/cube-application",
+  "version": "0.1.0",
+  "exports": "./mod.ts",
+  "publish": false,
+  "imports": {
+    "@cuberub/cube-core": "../cube-core/mod.ts",
+    "@cuberub/cube-input": "../cube-input/mod.ts"
+  }
+}
