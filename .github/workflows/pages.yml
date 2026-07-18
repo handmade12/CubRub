@@ -39,11 +39,11 @@ jobs:
       - name: Format and lint
         run: deno fmt --check . && deno lint . && deno check
 
-      - name: Run tests
-        run: deno test --allow-read
-
       - name: Build client
         run: deno task build
+
+      - name: Run tests
+        run: deno test --allow-read
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
