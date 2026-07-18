@@ -16,5 +16,28 @@
   </head>
   <body>
     <div id="app"></div>
+    <script>
+      // GitHub Pages does not let us set headers on a static dist. Inline
+      // a relaxed CSP here so the Preact bundle can render styles and run
+      // the cubing.js worker without being blocked.
+      // Production deployments are still served by the in-Deno server
+      // (apps/web/main.ts) with the strict headers.
+      (() => {
+        const meta = document.createElement("meta");
+        meta.httpEquiv = "Content-Security-Policy";
+        meta.content = [
+          "default-src 'self'",
+          "script-src 'self' 'wasm-unsafe-eval'",
+          "style-src 'self' 'unsafe-inline'",
+          "img-src 'self' data:",
+          "worker-src 'self' blob:",
+          "connect-src 'self'",
+          "object-src 'none'",
+          "base-uri 'self'",
+          "frame-ancestors 'none'",
+        ].join("; ");
+        document.head.appendChild(meta);
+      })();
+    </script>
   </body>
 </html>
