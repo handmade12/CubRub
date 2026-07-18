@@ -1,8 +1,4 @@
 {
-  "workspace": [
-    "apps/web",
-    "libs/*"
-  ],
   "nodeModulesDir": true,
   "lock": true,
   "tasks": {
